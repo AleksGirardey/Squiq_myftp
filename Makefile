@@ -5,7 +5,7 @@
 ## Login   <girard_x@epitech.net>
 ## 
 ## Started on  Mon Mar  9 10:40:18 2015 ALEXIS GIRARDEY
-## Last update Mon Mar  9 11:43:29 2015 ALEXIS GIRARDEY
+## Last update Mon Mar 16 17:20:06 2015 ALEXIS GIRARDEY
 ##
 
 CC	= gcc
@@ -16,15 +16,17 @@ SERVEUR = serveur
 
 CLIENT	= client
 
-S_SRC	= serveur.c
+S_SRC	= ./Serveur/serveur.c \
+	  ./Serveur/fct-annexe.c
 
-C_SRC	= client.c
+C_SRC	= ./Client/client.c \
+	  ./Serveur/fct-annexe.c
 
 S_OBJ	= $(S_SRC:.c=.o)
 
 C_OBJ	= $(C_SRC:.c=.o)
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -I./Includes
 
 $(SERVEUR): $(S_OBJ) $(C_OBJ)
 	$(CC) -o $(SERVEUR) $(S_OBJ) $(CFLAGS)
@@ -33,10 +35,13 @@ $(SERVEUR): $(S_OBJ) $(C_OBJ)
 all: $(SERVEUR)
 
 clean:
-	$(RM) $(S_OBJ)
-	$(RM) $(C_OBJ)
-	$(RM) *~
-	$(RM) *#
+	$(RM) ./Serveur/*.o
+	$(RM) ./Client/*.o
+	$(RM) ./Client/*~
+	$(RM) ./Client/*#
+	$(RM) ./Serveur/*~
+	$(RM) ./Serveur/*#
+	$(RM) ./Includes/*~
 
 fclean: clean
 	$(RM) $(SERVEUR)
