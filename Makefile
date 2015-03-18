@@ -5,7 +5,7 @@
 ## Login   <girard_x@epitech.net>
 ## 
 ## Started on  Mon Mar  9 10:40:18 2015 ALEXIS GIRARDEY
-## Last update Mon Mar 16 17:20:06 2015 ALEXIS GIRARDEY
+## Last update Wed Mar 18 23:49:55 2015 ALEXIS GIRARDEY
 ##
 
 CC	= gcc
@@ -17,7 +17,11 @@ SERVEUR = serveur
 CLIENT	= client
 
 S_SRC	= ./Serveur/serveur.c \
-	  ./Serveur/fct-annexe.c
+	  ./Serveur/fct-annexe.c \
+	  ./Serveur/exec-cmd.c \
+	  ./Serveur/fct-ftp-1.c \
+	  ./Serveur/fct-ftp-2.c \
+	  ./Serveur/fct-ftp-3.c \
 
 C_SRC	= ./Client/client.c \
 	  ./Serveur/fct-annexe.c

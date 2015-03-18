@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 12:16:28 2015 ALEXIS GIRARDEY
-** Last update Mon Mar 16 16:52:54 2015 ALEXIS GIRARDEY
+** Last update Wed Mar 18 23:41:43 2015 ALEXIS GIRARDEY
 */
 
 #ifndef SERVEUR_H_
@@ -20,6 +20,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <dirent.h>
+
+struct			s_user
+{
+  char			*username;
+  char			*password;
+};
+
+struct			s_cmd;
 
 struct			s_server
 {
@@ -30,11 +39,36 @@ struct			s_server
   size_t		c_len;
   struct sockaddr_in	sin;
   struct sockaddr_in	c_sin;
+  struct s_user		user;
 };
 
-void	init_server(int port,struct s_server *srv);
-void	server(int port);
-void	*my_malloc(size_t t);
-void	my_error(char *where, char *what);
+typedef			int (*cmd_fonction)(struct s_server);
+
+struct			s_cmd
+{
+  char			*cmd;
+  cmd_fonction		fonction;
+  struct s_cmd		*next;
+};
+
+void		ftp_user(struct s_server srv);
+void		ftp_ls(struct s_server srv);
+void		semi_ls(struct s_server srv);
+void		ftp_cd(struct s_server srv);
+void		semi_cd(char *path, char *current_path, struct s_server srv);
+void		ftp_get(struct s_server srv);
+void		ftp_put(struct s_server srv);
+void		ftp_pwd(struct s_server srv);
+void		ftp_quit(struct s_server srv);
+void		send_error(char *msg, struct s_server srv);
+void		init_server(int port,struct s_server *srv);
+void		server(int port);
+void		*my_malloc(size_t t);
+void		my_error(char *where, char *what);
+void		exec_cmd(struct s_server srv);
+void		free_struct(struct s_cmd *cmd);
+char		**get_args(struct s_server srv);
+struct s_cmd	*init_cmd();
+struct s_cmd	*new_cmd(char *cmd, cmd_fonction f);
 
 #endif /* SERVEUR_H_ */

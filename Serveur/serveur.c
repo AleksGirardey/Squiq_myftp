@@ -5,16 +5,10 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 11:32:55 2015 ALEXIS GIRARDEY
-** Last update Mon Mar 16 17:21:15 2015 ALEXIS GIRARDEY
+** Last update Wed Mar 18 22:45:28 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
-
-void			exec_cmd(struct s_server srv)
-{
-  printf("[Client] %s", srv.cmd);
-  write(srv.socket_c, "OK", 2);
-}
 
 void			init_server(int port,struct s_server *srv)
 {
@@ -54,6 +48,7 @@ void			server(int port)
 	      memset(srv.cmd, 0, 256);
 	      n = read(srv.socket_c, srv.cmd, 255);
 	      srv.cmd[n] = '\0';
+	      printf("[Client] %s\n", srv.cmd);
 	      if (strcmp(srv.cmd, "exit") != 0 || srv.cmd != NULL)
 		exec_cmd(srv);
 	    }
