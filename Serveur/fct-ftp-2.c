@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 22:26:12 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 11:18:11 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 15:04:59 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -19,25 +19,30 @@ void	ftp_pwd(struct s_server srv)
 {
   char	pwd[256];
 
-  if (srv.user.username == NULL)
+  if (srv.user->username == NULL)
     {
       send_error("Must be logged before perform any commands\n", srv);
       return;
     }
   if (getcwd(pwd, 255) != NULL)
-    write(srv.socket_c, pwd, strlen(pwd));
+    {
+      strcat(pwd, "\n");
+      write(srv.socket_c, pwd, strlen(pwd));
+    }
   else
     send_error("Pwd failed\n", srv);
 }
 
-void	ftp_quit(struct s_server srv)
+void	ftp_quit(struct s_server *srv)
 {
-  if (srv.user.username != NULL)
-    printf("[%s] Disconnected\n", srv.user.username);
+  if (srv->user->username != NULL)
+    printf("[%s] Disconnected\n", srv->user->username);
   else
     printf("[Client] Disconnected\n");
-  write(srv.socket_c, "exit", 4);
-  close(srv.socket_c);
+  write(srv->socket_c, "exit", 4);
+  close(srv->socket_c);
+  free(srv->user->username);
+  free(srv->user->password);
 }
 
 void	send_error(char *msg, struct s_server srv)

@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 12:15:28 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 12:06:47 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 14:01:14 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -26,8 +26,11 @@ void			*my_malloc(size_t t)
   return (_malloc);
 }
 
-void			my_strcpy(char	*dest, char *str)
+char		*my_strcpy(char *str)
 {
+  char	*dest;
+
   dest = my_malloc(sizeof(char) * (strlen(str) + 1));
   strcpy(dest, str);
+  return (dest);
 }

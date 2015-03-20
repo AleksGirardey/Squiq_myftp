@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 11:32:55 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 12:08:49 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 15:14:03 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -15,9 +15,10 @@ void			init_server(int port,struct s_server *srv)
   struct protoent	*pe;
 
   //srv->user.username = my_malloc(sizeof(char) * 256);
-  srv->user.username = NULL;
+  //srv->user->username = NULL;
   //srv->user.password = my_malloc(sizeof(char) * 256);
-  srv->user.password = NULL;
+  //srv->user->password = NULL;
+  srv->user = my_malloc(sizeof(struct s_user));
   srv->stop = 0;
   pe = getprotobyname("TCP");
   srv->socket_srv = socket(AF_INET, SOCK_STREAM, pe->p_proto);
@@ -36,15 +37,13 @@ void			init_server(int port,struct s_server *srv)
 void			server(int port)
 {
   int			n;
-  int			f;
   struct s_server	srv;
 
   init_server(port, &srv);
   while (srv.stop == 0)
     {
       srv.socket_c = accept(srv.socket_srv, (struct sockaddr*)&(srv.c_sin), (socklen_t *)&(srv.c_len));
-      f = fork();
-      if (f == 0)
+      if (fork() == 0)
 	{
 	  printf("[Server] New client connected..\n");
 	  while (strncmp(srv.cmd, "quit", 4) != 0)
@@ -52,13 +51,12 @@ void			server(int port)
 	      srv.cmd = my_malloc(sizeof(char) * 256);
 	      n = read(srv.socket_c, srv.cmd, 255);
 	      srv.cmd[n] = '\0';
-	      printf("[Client] %s", srv.cmd);
+	      printf("[%s] %s", srv.user->username == NULL ? "Client" : srv.user->username, srv.cmd);
 	      if (strncmp(srv.cmd, "quit", 4) != 0 || srv.cmd != NULL)
 		exec_cmd(srv);
 	    }
 	}
-      if (f > 0)
-	close(srv.socket_c);
+      close(srv.socket_c);
     }
 }
 

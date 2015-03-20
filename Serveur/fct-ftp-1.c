@@ -5,23 +5,20 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 22:21:43 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 11:33:28 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 15:17:04 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
 
 void		ftp_ls(struct s_server srv)
 {
-  if (srv.user.username == NULL)
+  if (srv.user->username == NULL)
     {
       send_error("Must be logged before using any commands\n", srv);
       return;
     }
   else
-    {
-      printf("[%s] %s\n", srv.user.username, srv.cmd);
-      semi_ls(srv);
-    }
+    semi_ls(srv);
 }
 
 void		semi_ls(struct s_server srv)
@@ -57,7 +54,7 @@ void		ftp_cd(struct s_server srv)
   char		current_dir[256];
 
   args = get_args(srv, 3);
-  if (srv.user.username == NULL)
+  if (srv.user->username == NULL)
     {
       send_error("Must be logged before using any commands.\n", srv);
       return;
@@ -93,7 +90,7 @@ void		semi_cd(char *path, char *current_path, struct s_server srv)
     }
   if (nb_slash > 0)
     {
-      send_error("No such directory\n", srv);
+      send_error("No such directory - 2\n", srv);
       return;
     }
   else
