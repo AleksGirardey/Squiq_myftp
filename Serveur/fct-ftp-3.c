@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Wed Mar 18 22:32:43 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 15:45:02 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 22:20:11 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -17,22 +17,23 @@ void		ftp_user(struct s_server *srv)
 
   args = get_args(*srv, 5);
   bzero(msg, 254);
+  printf("xxx%sxxx\n", args[1]);
   if (strlen(args[0]) == 0)
     {
-      send_error("[Usage] user _USERNAME_ (_PASSWORD_)\n", *srv);
+      send_error("xxx - command fail\n", *srv);
+      send_error("214 - [Usage] user _USERNAME_ (_PASSWORD_)\n", *srv);
       return;
     }
-  if (strcmp(args[0], "Anonymous") != 0 && args[0] != NULL)
-    send_error("Uknown account\n", *srv);
+  else if (strcmp(args[0], "Anonymous") != 0 || strlen(args[1]) != 0)
+    send_error("332 - Need account for login\n", *srv);
   else
     {
       srv->user->username = my_strcpy(args[0]);
-      if (strlen(args[1]) > 0)
-	srv->user->password = my_strcpy(args[1]);
       strcat(msg, "Welcome, ");
       strcat(msg, args[0]);
       strcat(msg, "\n");
       write(srv->socket_c, msg, strlen(msg));
+      send_error("230 - User logged in, proceed\n", *srv);
     }
   free_args(args);
 }

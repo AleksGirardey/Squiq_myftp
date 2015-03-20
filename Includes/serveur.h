@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 12:16:28 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 14:42:23 2015 ALEXIS GIRARDEY
+** Last update Sat Mar 21 00:28:04 2015 ALEXIS GIRARDEY
 */
 
 #ifndef SERVEUR_H_
@@ -36,6 +36,7 @@ struct			s_server
   int			socket_srv;
   int			stop;
   char			*cmd;
+  char			*home;
   size_t		c_len;
   struct sockaddr_in	sin;
   struct sockaddr_in	c_sin;
@@ -53,6 +54,7 @@ struct			s_cmd
   struct s_cmd		*next;
 };
 
+int		can_go(char *path, struct s_server srv);
 void		ftp_user(struct s_server *srv);
 void		ftp_ls(struct s_server srv);
 void		semi_ls(struct s_server srv);

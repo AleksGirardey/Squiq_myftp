@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 22:21:43 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 15:20:57 2015 ALEXIS GIRARDEY
+** Last update Sat Mar 21 00:33:01 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -14,7 +14,8 @@ void		ftp_ls(struct s_server srv)
 {
   if (srv.user->username == NULL)
     {
-      send_error("Must be logged before using any commands\n", srv);
+      send_error("xxx - Must be logged before using any commands\n", srv);
+      send_error("214 - User command needed\n", srv);
       return;
     }
   else
@@ -44,6 +45,7 @@ void		semi_ls(struct s_server srv)
 	}
       closedir(dir);
       write(srv.socket_c, ls, strlen(ls));
+      send_error("200 - command okay\n", srv);
       free(ls);
     }
 }
@@ -56,14 +58,19 @@ void		ftp_cd(struct s_server srv)
   args = get_args(srv, 3);
   if (srv.user->username == NULL)
     {
-      send_error("Must be logged before using any commands.\n", srv);
+      send_error("xxx - Must be logged before using any commands.\n", srv);
+      send_error("214 - User command needed\n", srv);
       return;
     }
-  if (chdir(args[0]) == -1)
-    send_error("No such directory\n", srv);
+  if (can_go(args[0], srv) == -1 || chdir(args[0]) == -1)
+    {
+      send_error("xxx - No such directory\n", srv);
+      send_error("214 - Please indicate a valid path\n", srv);      
+    }
   else
     {
       getcwd(current_dir, 255);
+      send_error("150 - File status ok; about to open data connection.\n", srv);
       semi_cd(args[0], current_dir, srv);
     }
 }
@@ -94,5 +101,5 @@ void		semi_cd(char *path, char *current_path, struct s_server srv)
       return;
     }
   else
-    write(srv.socket_c, "Directory changed\n", 18);
+    write(srv.socket_c, "226 - file action successful - Dir changed\n", 43);
 }

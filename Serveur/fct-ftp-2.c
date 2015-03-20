@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 22:26:12 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 15:42:07 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 21:49:17 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -21,16 +21,17 @@ void	ftp_pwd(struct s_server srv)
 
   if (srv.user->username == NULL)
     {
-      send_error("Must be logged before perform any commands\n", srv);
+      send_error("xxx - Must be logged before perform any commands\n", srv);
       return;
     }
   if (getcwd(pwd, 255) != NULL)
     {
       strcat(pwd, "\n");
+      send_error("257 - \"PATHNAME\" created\n", srv);
       write(srv.socket_c, pwd, strlen(pwd));
     }
   else
-    send_error("Pwd failed\n", srv);
+    send_error("xxx - Pwd failed\n", srv);
 }
 
 void	ftp_quit(struct s_server *srv)
@@ -40,6 +41,7 @@ void	ftp_quit(struct s_server *srv)
   else
     printf("[Client] Disconnected\n");
   write(srv->socket_c, "exit", 4);
+  send_error("221 - Logged out\n", *srv);
   close(srv->socket_c);
   free(srv->user->username);
   free(srv->user->password);

@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 17:46:47 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 14:38:14 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 22:16:23 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -27,5 +27,5 @@ void		exec_cmd(struct s_server srv)
   else if (strncmp(srv.cmd, "quit", 4) == 0)
     ftp_quit(&srv);
   else
-    send_error("Unknown command.\n", srv);
+    send_error("xxx - Unknown command.\n", srv);
 }

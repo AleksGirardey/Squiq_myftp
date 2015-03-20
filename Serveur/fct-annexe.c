@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 12:15:28 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 14:01:14 2015 ALEXIS GIRARDEY
+** Last update Sat Mar 21 00:36:35 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -26,11 +26,21 @@ void			*my_malloc(size_t t)
   return (_malloc);
 }
 
-char		*my_strcpy(char *str)
+char			*my_strcpy(char *str)
 {
-  char	*dest;
+  char			*dest;
 
   dest = my_malloc(sizeof(char) * (strlen(str) + 1));
   strcpy(dest, str);
   return (dest);
+}
+
+int		can_go(char *path, struct s_server srv)
+{
+  char		pwd[256];
+
+  getcwd(pwd, 255);
+  if (strcmp("..", path) == 0 && strcmp(pwd, srv.home) == 0)
+    return (-1);
+  return (1);
 }

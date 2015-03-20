@@ -1,13 +1,14 @@
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
+/*
+** client.c for my_ftp in /home/girard_x/GITREP/Squiq_myftp
+** 
+** Made by ALEXIS GIRARDEY
+** Login   <girard_x@epitech.net>
+** 
+** Started on  Fri Mar 20 21:59:38 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 22:13:21 2015 ALEXIS GIRARDEY
+*/
+
+#include "serveur.h"
 
 extern int errno;
 
@@ -43,6 +44,18 @@ int			init_client(int port, char *addr)
   return (s);
 }
 
+char			*rec_msg(int s)
+{
+  int			n;
+  char			*str;
+
+  str = my_malloc(sizeof(char) * 256);
+  n = read(s, str, 255);
+  str[n] = '\0';
+  write(1, str, strlen(str));
+  return (str);
+}
+
 int			main(int ac, char **av)
 {
   int			s;
@@ -68,6 +81,7 @@ int			main(int ac, char **av)
       n = read(s, str, 254);
       str[n] = '\0';
       write(1, str, strlen(str));
+      bzero(str, 254);
     }
   return (1);
 }

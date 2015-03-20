@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 11:32:55 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 15:42:37 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 22:42:36 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -28,6 +28,8 @@ void			init_server(int port,struct s_server *srv)
   if (listen(srv->socket_srv, 4) < 0)
     my_error("Server", "[Error] Can't listen the socket..");
   srv->c_len = sizeof(srv->c_sin);
+  srv->home = my_malloc(sizeof(char) * 255);
+  getcwd(srv->home, 255);
 }
 
 void			server(int port)
