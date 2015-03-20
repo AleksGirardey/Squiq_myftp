@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 11:32:55 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 15:14:03 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 15:42:37 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -14,10 +14,6 @@ void			init_server(int port,struct s_server *srv)
 {
   struct protoent	*pe;
 
-  //srv->user.username = my_malloc(sizeof(char) * 256);
-  //srv->user->username = NULL;
-  //srv->user.password = my_malloc(sizeof(char) * 256);
-  //srv->user->password = NULL;
   srv->user = my_malloc(sizeof(struct s_user));
   srv->stop = 0;
   pe = getprotobyname("TCP");

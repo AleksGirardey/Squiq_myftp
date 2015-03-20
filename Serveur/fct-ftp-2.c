@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 22:26:12 2015 ALEXIS GIRARDEY
-** Last update Fri Mar 20 15:04:59 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 15:42:07 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -43,6 +43,7 @@ void	ftp_quit(struct s_server *srv)
   close(srv->socket_c);
   free(srv->user->username);
   free(srv->user->password);
+  free(srv->user);
 }
 
 void	send_error(char *msg, struct s_server srv)
