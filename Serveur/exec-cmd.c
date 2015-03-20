@@ -5,13 +5,13 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 17:46:47 2015 ALEXIS GIRARDEY
-** Last update Wed Mar 18 23:52:18 2015 ALEXIS GIRARDEY
+** Last update Thu Mar 19 22:06:29 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
-
+/*
 char		cmds[7][4] = {"user", "ls", "cd", "get", "put", "pwd", "quit"};
-cmd_fonction	fcts[7] = {ftp_user, ftp_ls, ftp_cd, ftp_get, ftp_put, ftp_pwd, ftp_quit};
+cmd_fonction	fcts[7] = {&ftp_user, &ftp_ls, &ftp_cd, &ftp_get, &ftp_put, &ftp_pwd, &ftp_quit};
 
 struct s_cmd	*new_cmd(char *cmd, cmd_fonction f)
 {
@@ -70,4 +70,24 @@ void		exec_cmd(struct s_server srv)
   if (a == 0)
     send_error("Unknown command.\n", srv);
   free_struct(my_cmds);
+  }*/
+
+void		exec_cmd(struct s_server srv)
+{
+  if (strncmp(srv.cmd, "user", 4) == 0)
+    ftp_user(srv);
+  else if (strncmp(srv.cmd, "ls", 2) == 0)
+    ftp_ls(srv);
+  else if (strncmp(srv.cmd, "cd", 2) == 0)
+    ftp_cd(srv);
+  else if (strncmp(srv.cmd, "get", 3) == 0)
+    ftp_get(srv);
+  else if (strncmp(srv.cmd, "put", 3) == 0)
+    ftp_put(srv);
+  else if (strncmp(srv.cmd, "pwd", 3) == 0)
+    ftp_pwd(srv);
+  else if (strncmp(srv.cmd, "quit", 4) == 0)
+    ftp_quit(srv);
+  else
+    send_error("Unknown command.\n", srv);
 }

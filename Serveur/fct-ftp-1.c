@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 22:21:43 2015 ALEXIS GIRARDEY
-** Last update Wed Mar 18 23:18:00 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 11:33:28 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -56,7 +56,7 @@ void		ftp_cd(struct s_server srv)
   char		**args;
   char		current_dir[256];
 
-  args = get_args(srv);
+  args = get_args(srv, 3);
   if (srv.user.username == NULL)
     {
       send_error("Must be logged before using any commands.\n", srv);

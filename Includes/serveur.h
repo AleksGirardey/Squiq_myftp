@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Mon Mar 16 12:16:28 2015 ALEXIS GIRARDEY
-** Last update Wed Mar 18 23:41:43 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 12:08:03 2015 ALEXIS GIRARDEY
 */
 
 #ifndef SERVEUR_H_
@@ -44,6 +44,8 @@ struct			s_server
 
 typedef			int (*cmd_fonction)(struct s_server);
 
+extern cmd_fonction fcts[7];
+
 struct			s_cmd
 {
   char			*cmd;
@@ -66,9 +68,11 @@ void		server(int port);
 void		*my_malloc(size_t t);
 void		my_error(char *where, char *what);
 void		exec_cmd(struct s_server srv);
-void		free_struct(struct s_cmd *cmd);
-char		**get_args(struct s_server srv);
-struct s_cmd	*init_cmd();
-struct s_cmd	*new_cmd(char *cmd, cmd_fonction f);
+//void		free_struct(struct s_cmd *cmd);
+void		free_args(char **args);
+void		my_strcpy(char *dest, char *str);
+char		**get_args(struct s_server srv, int i);
+//struct s_cmd	*init_cmd();
+//struct s_cmd	*new_cmd(char *cmd, cmd_fonction f);
 
 #endif /* SERVEUR_H_ */

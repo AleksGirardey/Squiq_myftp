@@ -5,7 +5,7 @@
 ** Login   <girard_x@epitech.net>
 ** 
 ** Started on  Tue Mar 17 22:26:12 2015 ALEXIS GIRARDEY
-** Last update Wed Mar 18 23:47:54 2015 ALEXIS GIRARDEY
+** Last update Fri Mar 20 11:18:11 2015 ALEXIS GIRARDEY
 */
 
 #include "serveur.h"
@@ -35,7 +35,7 @@ void	ftp_quit(struct s_server srv)
   if (srv.user.username != NULL)
     printf("[%s] Disconnected\n", srv.user.username);
   else
-    printf("[Client] Disconnecter\n");
+    printf("[Client] Disconnected\n");
   write(srv.socket_c, "exit", 4);
   close(srv.socket_c);
 }

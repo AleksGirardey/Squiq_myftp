@@ -38,7 +38,7 @@ int			init_client(int port, char *addr)
   if ((connect(s, (const struct sockaddr *)&sin, (socklen_t)sizeof(sin))) == -1)
     {
       perror("[Client][Error]");
-      return (-1);
+      exit(-1);
     }
   return (s);
 }
@@ -52,22 +52,22 @@ int			main(int ac, char **av)
   if (ac != 3)
     exit(-1);
   s = init_client(atoi(av[2]), av[1]);
-  while (strncmp(str, "exit", 4) != 0)
+  while (strncmp(str, "quit", 4) != 0)
     {
       write(1, "[Client] ", 9); 
-      n = read(0, str, 255);
+      n = read(0, str, 254);
       str[n] = '\0';
       write(s, str, strlen(str));
-      if (strncmp(str, "exit", 4) == 0)
+      if (strncmp(str, "quit", 4) == 0)
 	{
 	  printf("[Client] Disconneted from %s\n", av[1]);
 	  close(s);
 	  break;
 	}
-      bzero(str, 255);
-      n = read(s, str, 255);
+      bzero(str, 254);
+      n = read(s, str, 254);
       str[n] = '\0';
-      printf("[Serveur] %s\n", str);
+      write(1, str, strlen(str));
     }
   return (1);
 }
